@@ -1,0 +1,26 @@
+<div class="content">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 pt-2">
+            <div class="img-container" style="width: 35px; height: 35px;">
+                <img class="img-fluid" src="https://image.flaticon.com/icons/svg/3135/3135715.svg" alt="Avatar">
+            </div>
+        </div>
+        <div class="col-md-10 col-sm-10  " *ngIf="post">
+            <div class="content">
+                <p style="font-size: 12px;"><strong>{{post.title}}</strong></p>
+                <p style="font-size: 10px;">{{post.body}}</p>
+            </div>
+            <div class="options">
+                <div class="row" style="display: flex;justify-content: flex-end;">
+                    <div class="col-2">
+                        <a class="btn-floating btn-sm btn-primary" type="button" (click)="updatePost()" style="color: white;"><i class="fas fa-edit"></i></a>
+                    </div>
+                    <div class="col-2">
+                        <a class="btn-floating btn-sm btn-danger" type="button" [ngClass]="{'disabled': processing}" (click)="onDeletePost()" style="color: white;"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

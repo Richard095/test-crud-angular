@@ -1,0 +1,124 @@
+<app-header></app-header>
+<div class="container" style="padding: 10px;">
+    <div class="row">
+        <div class="col-md-3 d-none d-sm-block d-md-block mb-2">
+            <div style="background-color: #ffffff;padding: 4px;">
+                <img class="img-fluid" src="https://cdn.pixabay.com/photo/2020/09/06/09/05/beach-5548446_960_720.jpg" alt="">
+                <div class="container p-2">
+                    <div class="row p-2">
+                        <div class="col-12">
+                            <h5>Ricardo Ramirez</h5>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-4">
+                            <strong>Posts</strong> 200
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Followers</strong> 300
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Following</strong> 300
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-12 col-sm-12">
+            <div class="form-content p-2" style="background-color: #ffffff;">
+
+                <div class="form-group" *ngIf="!edit">
+                    <!--FORM:::::::::::::::::::::-->
+                    <form [formGroup]="createForm">
+                        <label for="exampleFormControlTextarea1">Write a new post</label>
+                        <input type="email" class="form-control" formControlName="title" placeholder="Title">
+                        <textarea class="form-control" formControlName="description" style="margin-top: 10px;" placeholder="Write something..." rows="3"></textarea>
+                    </form>
+                </div>
+
+                <div class="form-group" *ngIf="edit">
+                    <!--FORM:::::::::::::::::::::-->
+                    <form [formGroup]="createForm">
+                        <label for="exampleFormControlTextarea1" *ngIf="!edit">Write a new post</label>
+                        <input type="email" class="form-control" formControlName="title" value="{{post.title}}" placeholder="Title">
+                        <textarea class="form-control" formControlName="description" value="{{post.body}}" style="margin-top: 10px;" placeholder="Write something..." rows="3"></textarea>
+                    </form>
+                </div>
+
+
+                <div style="display: flex;justify-content: flex-end;">
+                    <div>
+                        <button (click)="onSavePost(post)" class="btn btn-default btn-sm">
+                                <i *ngIf="!saving" class="fas fa-paper-plane ml-1"></i>
+                                <p *ngIf="saving">Saving...</p>
+                            </button>
+                    </div>
+
+                    <div *ngIf="edit">
+                        <button (click)="cancelEdit()" class="btn btn-light btn-sm"> CANCEL </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="indicator" *ngIf="loading" style="display: flex;justify-content: center;padding: 10px;">
+                <p><strong>Loading...</strong></p>
+            </div>
+
+            <div class="alert alert-danger mt-2" *ngIf="deleted" role="alert">
+                Post deleted
+            </div>
+
+            <div *ngFor="let post of posts" class="list-comment-content p-2" style="background-color: #ffffff;margin-top: 10px;">
+                <app-post [post]="post"></app-post>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-none d-sm-block d-md-block">
+            <div style="background-color: #ffffff;padding: 4px; padding: 10px;">
+                <div class="container p-2">
+                    <div class="row p-2">
+                        <div class="col-12">
+                            <h5>Who to Follow</h5>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <img class="img-fluid" style="height: 35px;width: 35px;" src="https://image.flaticon.com/icons/svg/3135/3135715.svg" alt="Avatar">
+
+                        <div class="col-md-8">
+                            Mollie Richardsn <strong>Follow</strong>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Show datails post-->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="posted" *ngIf="!saving">
+                    <app-post [post]="post"></app-post>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal edit post-->
