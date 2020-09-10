@@ -35,9 +35,10 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.fetchPosts()
+    this.fetchPosts();
+
+    //Recibimos Post desde el Componente Hijo app-post   listo para editar
     this.emmiterS.handleChildPost.subscribe(post => {
-      console.log(post)
       this.post = post;
       this.edit = true;
       this.createForm.get("title").setValue(this.post.title);
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
       
     });
 
+    //Recibimos Post desde el  Componente Hijo app-post cuando fue eliminado
     this.emmiterS.hadlePostDelete.subscribe(post => {        
       let index = this.posts.indexOf(post);
       this.posts.splice(index,1);
@@ -96,13 +98,16 @@ export class HomeComponent implements OnInit {
       post.body = this.createForm.get("description").value;
       this.saving = true;
       this.postService.updatePost(post,post.id).then(res => {
+        console.log("EDITADO")
         this.edit = false;
-        this.createForm.reset();
         this.saving = false;
         this.posts[this.posts.indexOf(post)] = this.post;
         this.post = null;
 
+        this.createForm.reset();
+
       }).catch(error => {
+        console.log("ERROR")
         this.saving = false;
       })
       

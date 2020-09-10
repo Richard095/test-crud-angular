@@ -28,7 +28,7 @@
             <div class="form-content p-2" style="background-color: #ffffff;">
 
                 <div class="form-group" *ngIf="!edit">
-                    <!--FORM:::::::::::::::::::::-->
+                    <!--FORM CREATE NEW POST :::::::::::::::::::::-->
                     <form [formGroup]="createForm">
                         <label for="exampleFormControlTextarea1">Write a new post</label>
                         <input type="email" class="form-control" formControlName="title" placeholder="Title">
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="form-group" *ngIf="edit">
-                    <!--FORM:::::::::::::::::::::-->
+                    <!--FORM EDIT:::::::::::::::::::::-->
                     <form [formGroup]="createForm">
                         <label for="exampleFormControlTextarea1" *ngIf="!edit">Write a new post</label>
                         <input type="email" class="form-control" formControlName="title" value="{{post.title}}" placeholder="Title">
@@ -98,6 +98,8 @@
 </div>
 
 
+
+
 <!-- Modal Show datails post-->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -109,8 +111,8 @@
           </button>
             </div>
             <div class="modal-body">
-                <div class="posted" *ngIf="!saving">
-                    <app-post [post]="post"></app-post>
+                <div>
+                    Post created succesful!
                 </div>
             </div>
             <div class="modal-footer">
